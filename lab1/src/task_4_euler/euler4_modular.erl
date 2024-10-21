@@ -13,7 +13,7 @@ solution() ->
 
 is_pal(Num) ->
   StrNum = integer_to_list(Num),
-  StrNum =:= lists:reverse(Num).
+  StrNum =:= lists:reverse(StrNum).
 
 %% Генерация последовательности
 generate_products() -> [I * J || I <- lists:seq(100, 999), J <- lists:seq(100, 999)].

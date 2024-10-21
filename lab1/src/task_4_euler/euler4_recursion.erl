@@ -11,7 +11,7 @@ solution() -> largest_pal_rec(999, 999).
 
 is_pal(Num) ->
   StrNum = integer_to_list(Num),
-  StrNum =:= lists:reverse(Num).
+  StrNum =:= lists:reverse(StrNum).
 
 
 get_new_max(Product, Max) ->

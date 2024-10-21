@@ -12,7 +12,7 @@ solution() ->
 
 is_pal(Num) ->
   StrNum = integer_to_list(Num),
-  StrNum =:= lists:reverse(Num).
+  StrNum =:= lists:reverse(StrNum).
 
 %% Генерация последовательности при помощи отображения
 generate_products_via_map(Min, Max) ->
