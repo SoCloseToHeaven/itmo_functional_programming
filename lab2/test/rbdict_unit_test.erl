@@ -8,7 +8,17 @@ new_dict_test() ->
     Dict = rbdict:new(),
     ?assertEqual(empty, Dict).
 
-append_test() ->
-    Dict = rbdict:append('1', '2', rbdict:new()),
+store_test() ->
+    Dict = rbdict:store('1', '2', rbdict:new()),
     HasKey = rbdict:is_key('1', Dict),
     ?assertEqual(true, HasKey).
+
+equals_test() ->
+    Dict = rbdict:store('1', '1', empty),
+    Dict1 = rbdict:store('1', '2', empty),
+
+    Result = rbdict:equals(Dict, Dict),
+    Result1 = rbdict:equals(Dict, Dict1),
+
+    ?assertEqual(true, Result),
+    ?assertEqual(false, Result1).

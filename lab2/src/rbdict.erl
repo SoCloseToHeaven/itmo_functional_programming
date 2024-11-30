@@ -3,9 +3,10 @@
 %% Standard interface.
 -export([new/0, is_key/2, to_list/1, from_list/1, size/1]).
 -export([fetch/2, find/2, fetch_keys/1, erase/2]).
--export([store/3, append/3, append_list/3]).
+-export([store/3]).
 -export([update_val/3, update/3, update/4, update_counter/3]).
--export([fold/3, map/2, filter/2, merge/3]).
+-export([fold/3, map/2, filter/2, merge/3, union/2]).
+-export([equals/2]).
 
 new() -> empty.
 
@@ -81,36 +82,6 @@ store1(K, V, {C, Left, K1, V1, Right}) when K > K1 ->
     rbalance(C, Left, K1, V1, store1(K, V, Right));
 store1(K, V, {C, L, _, _, R}) ->
     {C, L, K, V, R}.
-
-append(K, V, T) ->
-    {_, L, K1, V1, R} = append1(K, V, T),
-    %setelement(1, b, T1).
-    {b, L, K1, V1, R}.
-
-append1(K, V, empty) ->
-    {r, empty, K, [V], empty};
-append1(K, V, {C, Left, K1, V1, Right}) when K < K1 ->
-    lbalance(C, append1(K, V, Left), K1, V1, Right);
-append1(K, V, {C, Left, K1, V1, Right}) when K > K1 ->
-    rbalance(C, Left, K1, V1, append1(K, V, Right));
-append1(K, V, {C, L, _, V1, R}) ->
-    {C, L, K, V1 ++ [V], R}.
-
-%% append(Key, [Val], Dict) -> Dict.
-
-append_list(K, V, T) ->
-    {_, L, K1, V1, R} = append_list1(K, V, T),
-    %setelement(1, b, T1).
-    {b, L, K1, V1, R}.
-
-append_list1(K, V, empty) ->
-    {r, empty, K, V, empty};
-append_list1(K, V, {C, Left, K1, V1, Right}) when K < K1 ->
-    lbalance(C, append_list1(K, V, Left), K1, V1, Right);
-append_list1(K, V, {C, Left, K1, V1, Right}) when K > K1 ->
-    rbalance(C, Left, K1, V1, append_list1(K, V, Right));
-append_list1(K, V, {C, L, _, V1, R}) ->
-    {C, L, K, V1 ++ V, R}.
 
 %% update_val(Key, Val, Dict) -> Dict.
 
@@ -325,3 +296,17 @@ merge(F, D1, D2) ->
         D1,
         D2
     ).
+
+%% Union is defined only for data structures which also support unions
+
+union(D1, D2) -> merge(fun(_, V1, V2) -> V1 + V2 end, D1, D2).
+
+equals(D1, D2) ->
+    KeysD1 = fetch_keys(D1),
+    KeysD2 = fetch_keys(D2),
+
+    Comparator = fun(E) ->
+        rbdict:find(E, D1) == rbdict:find(E, D2)
+    end,
+
+    lists:all(Comparator, KeysD1) andalso lists:all(Comparator, KeysD2).
