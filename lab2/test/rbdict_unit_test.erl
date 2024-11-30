@@ -5,10 +5,10 @@
 -include_lib("stdlib/include/assert.hrl").
 
 new_dict_test() ->
-  Dict = rbdict:new(),
-  ?assertEqual(empty, Dict).
+    Dict = rbdict:new(),
+    ?assertEqual(empty, Dict).
 
 append_test() ->
-  Dict = rbdict:append('1', '2', rbdict:new()),
-  HasKey = rbdict:is_key('1', Dict),
-  ?assertEqual(true, HasKey).
+    Dict = rbdict:append('1', '2', rbdict:new()),
+    HasKey = rbdict:is_key('1', Dict),
+    ?assertEqual(true, HasKey).
