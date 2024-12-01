@@ -57,7 +57,8 @@ find(K, {_, Left, K1, _, _}) when K < K1 ->
     find(K, Left);
 find(K, {_, _, K1, _, Right}) when K > K1 ->
     fetch(K, Right);
-find(_, {_, _, _, Val, _}) -> Val.
+find(_, {_, _, _, Val, _}) ->
+    Val.
 
 %% fetch_keys(Dict) -> [Key].
 
