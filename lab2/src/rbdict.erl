@@ -57,8 +57,7 @@ find(K, {_, Left, K1, _, _}) when K < K1 ->
     find(K, Left);
 find(K, {_, _, K1, _, Right}) when K > K1 ->
     fetch(K, Right);
-find(_, {_, _, _, Val, _}) ->
-    {ok, Val}.
+find(_, {_, _, _, Val, _}) -> Val.
 
 %% fetch_keys(Dict) -> [Key].
 
@@ -305,8 +304,8 @@ equals(D1, D2) ->
     KeysD1 = fetch_keys(D1),
     KeysD2 = fetch_keys(D2),
 
-    Comparator = fun(E) ->
-        rbdict:find(E, D1) == rbdict:find(E, D2)
+    Comparator = fun(Key) ->
+        rbdict:find(Key, D1) == rbdict:find(Key, D2)
     end,
 
     lists:all(Comparator, KeysD1) andalso lists:all(Comparator, KeysD2).

@@ -66,3 +66,6 @@ jobs:
       - name: Run Eunit tests
         run: |
           rebar3 eunit -v
+      - name: Run Proper tests
+        run: |
+          rebar3 proper
