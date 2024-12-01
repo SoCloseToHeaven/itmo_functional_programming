@@ -28,6 +28,21 @@ prop_associativity_test() ->
         end
     ).
 
+prop_neutral_element_test() ->
+    ?FORALL(
+        {Keys},
+        {list(int())},
+        begin
+            Neutral = rbdict:new(),
+            Dict = store_keys_example(Keys),
+
+            Union1 = rbdict:union(Neutral, Dict),
+            Union2 = rbdict:union(Dict, Neutral),
+
+            rbdict:equals(Union1, Union2) andalso rbdict:equals(Union1, Dict)
+        end
+    ).
+
 store_keys_example(Keys) -> store_keys_example(Keys, rbdict:new()).
 store_keys_example([], Dict) ->
     Dict;
