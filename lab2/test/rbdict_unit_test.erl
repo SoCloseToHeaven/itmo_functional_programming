@@ -40,9 +40,12 @@ map_test() ->
 
 filter_test() ->
     Dict = rbdict:store('1', 1, rbdict:new()),
-    FilteredDict = rbdict:filter(fun(_K, V) -> false end, Dict),
+    FilteredDict = rbdict:filter(fun(_K, _V) -> false end, Dict),
 
     ?assertEqual(empty, FilteredDict).
+
+%% TODO: fold unit test
+
 equals_test() ->
     Dict = rbdict:store('1', '1', empty),
     Dict1 = rbdict:store('1', '2', empty),
@@ -52,3 +55,15 @@ equals_test() ->
 
     ?assertEqual(true, Result),
     ?assertEqual(false, Result1).
+
+lazy_test() ->
+    Dict = rbdict:store('2', '2', empty),
+
+    LazyDict = rbdict_lazy:new(Dict),
+
+    rbdict_lazy:store('1', '1', LazyDict),
+    rbdict_lazy:filter(fun(_K, V) -> V =:= '2' end, LazyDict),
+
+    ResultDict = rbdict_lazy:current(LazyDict),
+
+    ?assertEqual(true, rbdict:equals(Dict, ResultDict)).

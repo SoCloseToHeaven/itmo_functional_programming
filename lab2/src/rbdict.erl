@@ -268,12 +268,16 @@ fold(F, Acc, {_, A, Xk, Xv, B}) -> fold(F, F(Xk, Xv, fold(F, Acc, B)), A).
 
 %% map(Fun, Dict) -> Dict.
 
+%% Надо дерево ребалансировать после map
+
 map(_, empty) -> empty;
 map(F, {RB, A, Xk, Xv, B}) -> {RB, map(F, A), Xk, F(Xk, Xv), map(F, B)}.
 
 %% filter(Fun, Dict) -> Dict.
 
 filter(F, T) -> filter(F, T, new()).
+
+%% Тут фильтр хуево сделан, надо переделать
 
 filter(_, empty, New) ->
     New;
