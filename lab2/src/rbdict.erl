@@ -4,7 +4,7 @@
 -export([new/0, is_key/2, to_list/1, from_list/1, size/1]).
 -export([fetch/2, find/2, fetch_keys/1, erase/2]).
 -export([store/3]).
--export([update_val/3, update/3, update/4, update_counter/3]).
+-export([update_val/3, update/3]).
 -export([fold/3, map/2, filter/2, merge/3, union/2]).
 -export([equals/2]).
 
@@ -268,8 +268,6 @@ fold(F, Acc, {_, A, Xk, Xv, B}) -> fold(F, F(Xk, Xv, fold(F, Acc, B)), A).
 
 %% map(Fun, Dict) -> Dict.
 
-%% Надо дерево ребалансировать после map
-
 map(_, empty) -> empty;
 map(F, {RB, A, Xk, Xv, B}) -> {RB, map(F, A), Xk, F(Xk, Xv), map(F, B)}.
 
@@ -277,7 +275,7 @@ map(F, {RB, A, Xk, Xv, B}) -> {RB, map(F, A), Xk, F(Xk, Xv), map(F, B)}.
 
 filter(F, T) -> filter(F, T, new()).
 
-%% Тут фильтр хуево сделан, надо переделать
+%% Тут фильтр так себе сделан, надо бы переделать
 
 filter(_, empty, New) ->
     New;
