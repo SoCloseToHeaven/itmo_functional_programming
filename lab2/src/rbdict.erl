@@ -117,22 +117,6 @@ update1(K, F, I, {RB, A, Xk, Xv, B}) when K > Xk ->
 update1(_, F, _, {RB, A, Xk, Xv, B}) ->
     {RB, A, Xk, F(Xv), B}.
 
-%% update_counter(Key, Incr, Dict) -> Dict.
-
-update_counter(K, I, T) ->
-    {_, L, K1, V1, R} = update_counter1(K, I, T),
-    %setelement(1, b, T1).
-    {b, L, K1, V1, R}.
-
-update_counter1(K, I, empty) ->
-    {r, empty, K, I, empty};
-update_counter1(K, I, {RB, A, Xk, Xv, B}) when K < Xk ->
-    lbalance(RB, update_counter1(K, I, A), Xk, Xv, B);
-update_counter1(K, I, {RB, A, Xk, Xv, B}) when K > Xk ->
-    rbalance(RB, A, Xk, Xv, update_counter1(K, I, B));
-update_counter1(_, I, {RB, A, Xk, Xv, B}) ->
-    {RB, A, Xk, Xv + I, B}.
-
 %% lbalance(Colour, Left, Key, Val, Right).
 %% rbalance(Colour, Left, Key, Val, Right).
 %% Balance a tree afer (possibly) adding a node to the left/right.
