@@ -259,7 +259,6 @@ map(F, {RB, A, Xk, Xv, B}) -> {RB, map(F, A), Xk, F(Xk, Xv), map(F, B)}.
 
 filter(F, T) -> filter(F, T, new()).
 
-%% Тут фильтр так себе сделан, надо бы переделать
 
 filter(_, empty, New) ->
     New;

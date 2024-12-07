@@ -57,7 +57,21 @@ erase(K, T) ->
 
 Фильтрация (filter):
 
-TODO
+```erlang
+filter(F, T) -> filter(F, T, new()).
+
+
+filter(_, empty, New) ->
+    New;
+filter(F, {_, A, Xk, Xv, B}, New0) ->
+    New1 = filter(F, A, New0),
+    New2 =
+        case F(Xk, Xv) of
+            true -> store(Xk, Xv, New1);
+            false -> New1
+        end,
+    filter(F, B, New2).
+```
 
 Отображение (map):
 
@@ -74,6 +88,22 @@ map(F, {RB, A, Xk, Xv, B}) -> {RB, map(F, A), Xk, F(Xk, Xv), map(F, B)}.
 
 fold(_, Acc, empty) -> Acc;
 fold(F, Acc, {_, A, Xk, Xv, B}) -> fold(F, F(Xk, Xv, fold(F, Acc, B)), A).
+```
+
+Слияние:
+
+```erlang
+
+%% merge(Fun, Dict, Dict) -> Dict.
+
+merge(F, D1, D2) ->
+    fold(
+        fun(K, V2, D) ->
+            update(K, fun(V1) -> F(K, V1, V2) end, V2, D)
+        end,
+        D1,
+        D2
+    ).
 ```
 
 ## Эмуляция ленивых вычислений
