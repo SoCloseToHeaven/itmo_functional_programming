@@ -151,6 +151,14 @@ filter(Fun, Pid) -> ?SCHEDULE_OPERATION(fun(Dict) -> rbdict:filter(Fun, Dict) en
 
 ## Соответствие свойству моноида
 
+- Определен нейтральный элемент - rbdict:new()
+
+- Определена бинарная операция union()
+
+```erlang
+union(D1, D2) -> merge(fun(_, V1, V2) -> V1 + V2 end, D1, D2).
+```
+
 ---
 
 ## Тестирование
