@@ -12,7 +12,7 @@ linear_interpolation(Step, [[X1, Y1], [X2, Y2]]) ->
         false ->
             K = (Y2 - Y1) / (X2 - X1),
             B = Y1 - K * X1,
-            GenerateValues = interpolation_module:points_generator(Step, X1, X2),
+            GenerateValues = interpolation:points_generator(Step, X1, X2),
             Res = [GenerateValues, lists:map(fun(X) -> K * X + B end, GenerateValues)],
             {ok, linear, Res}
     end.

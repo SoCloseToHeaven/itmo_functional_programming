@@ -17,7 +17,7 @@ init(Config) ->
                     Ref = erlang:monitor(process, Pid),
                     {Pid, Ref, linear};
                 lagrange ->
-                    Pid = lagrange_interpolation_module:start_lagrange(
+                    Pid = lagrange_interpolation:start_lagrange(
                         self(), element(1, Config), element(2, Config)
                     ),
                     Ref = erlang:monitor(process, Pid),
@@ -75,7 +75,7 @@ restart_process(Method, Config) ->
         linear ->
             linear_interpolation:start_linear(element(1, Config), self());
         lagrange ->
-            lagrange_interpolation_module:start_lagrange(
+            lagrange_interpolation:start_lagrange(
                 self(), element(1, Config), element(2, Config)
             )
     end.

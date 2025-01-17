@@ -33,7 +33,7 @@ lagrange_polynomial(X, Points) ->
 evaluate_lagrange(Step, Points) ->
     [X1, _] = hd(Points),
     [X2, _] = lists:last(Points),
-    GeneratedDots = interpolation_module:points_generator(Step, X1, X2),
+    GeneratedDots = interpolation:points_generator(Step, X1, X2),
     [GeneratedDots, [lagrange_polynomial(X, Points) || X <- GeneratedDots]].
 
 lagrange_loop(Points, Step, Window, From) ->
