@@ -146,6 +146,45 @@ OR
 - `w` - размер окна в методе Лагранжа
 - `methods` - используемые методы
 
+Example (ln(x)): 
+
+```
+Starting supervisor...
+Booted with -- Freq 0.5, Window 4, Methods [linear,lagrange]
+
+Enter dots: 1 0
+
+Enter dots: 2 0.693
+Linear interpolation result
+Generated Dots:
+   1.000    1.500    2.000    2.500 
+Interpolated Values:
+   0.000    0.346    0.693    1.039 
+
+Enter dots: 3 1.0986
+Linear interpolation result
+Generated Dots:
+   2.000    2.500    3.000    3.500 
+Interpolated Values:
+   0.693    0.896    1.099    1.301 
+
+Enter dots: 4 1.3863
+Linear interpolation result
+Generated Dots:
+   3.000    3.500    4.000    4.500 
+Interpolated Values:
+   1.099    1.242    1.386    1.530 
+
+Lagrange interpolation result
+Generated Dots:
+   1.000    1.500    2.000    2.500    3.000    3.500    4.000    4.500 
+Interpolated Values:
+   0.000    0.393    0.693    0.921    1.099    1.247    1.386    1.539 
+
+Enter dots:
+```
+
+
 
 ## OTP
 
@@ -335,6 +374,45 @@ terminate(_Reason, _State) ->
 ```
 
 ### IO
+
+Example (ln(x)):
+
+```Booted with: freq - 0.5, window - 4, methods - [linear,lagrange]
+
+Enter dot: 1 0
+
+Enter dot: 2 0.693
+
+Linear interpolation:
+Generated Dots:
+1.000    1.500    2.000    2.500
+Interpolated Values:
+0.000    0.346    0.693    1.039
+
+Enter dot: 3 1.0986
+
+Linear interpolation:
+Generated Dots:
+2.000    2.500    3.000    3.500
+Interpolated Values:
+0.693    0.896    1.099    1.301
+
+Enter dot: 4 1.3863
+
+Linear interpolation:
+Generated Dots:
+3.000    3.500    4.000    4.500
+Interpolated Values:
+1.099    1.242    1.386    1.530
+
+Lagrange interpolation:
+Generated Dots:
+1.000    1.500    2.000    2.500    3.000    3.500    4.000    4.500
+Interpolated Values:
+0.000    0.393    0.693    0.921    1.099    1.247    1.386    1.539
+
+Enter dot: 
+```
 
 ## Conclusion
 
